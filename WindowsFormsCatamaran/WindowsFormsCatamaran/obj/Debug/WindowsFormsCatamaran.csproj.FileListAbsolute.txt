@@ -17,3 +17,13 @@ F:\ТП\podkorytovaa\PIbd-22_Podkorytova_Y.V._C_Sharp\WindowsFormsCatamaran\Wind
 F:\ТП\podkorytovaa\PIbd-22_Podkorytova_Y.V._C_Sharp\WindowsFormsCatamaran\WindowsFormsCatamaran\obj\Debug\WindowsFormsCatamaran.csproj.CoreCompileInputs.cache
 F:\ТП\podkorytovaa\PIbd-22_Podkorytova_Y.V._C_Sharp\WindowsFormsCatamaran\WindowsFormsCatamaran\obj\Debug\WindowsFormsCatamaran.exe
 F:\ТП\podkorytovaa\PIbd-22_Podkorytova_Y.V._C_Sharp\WindowsFormsCatamaran\WindowsFormsCatamaran\obj\Debug\WindowsFormsCatamaran.pdb
+F:\ТехПрог\PIbd-22_Podkorytova_Y.V._C_Sharp\PIbd-22_Podkorytova_Y.V._C_Sharp\WindowsFormsCatamaran\WindowsFormsCatamaran\bin\Debug\WindowsFormsCatamaran.exe.config
+F:\ТехПрог\PIbd-22_Podkorytova_Y.V._C_Sharp\PIbd-22_Podkorytova_Y.V._C_Sharp\WindowsFormsCatamaran\WindowsFormsCatamaran\bin\Debug\WindowsFormsCatamaran.exe
+F:\ТехПрог\PIbd-22_Podkorytova_Y.V._C_Sharp\PIbd-22_Podkorytova_Y.V._C_Sharp\WindowsFormsCatamaran\WindowsFormsCatamaran\bin\Debug\WindowsFormsCatamaran.pdb
+F:\ТехПрог\PIbd-22_Podkorytova_Y.V._C_Sharp\PIbd-22_Podkorytova_Y.V._C_Sharp\WindowsFormsCatamaran\WindowsFormsCatamaran\obj\Debug\WindowsFormsCatamaran.csprojAssemblyReference.cache
+F:\ТехПрог\PIbd-22_Podkorytova_Y.V._C_Sharp\PIbd-22_Podkorytova_Y.V._C_Sharp\WindowsFormsCatamaran\WindowsFormsCatamaran\obj\Debug\WindowsFormsCatamaran.FormCatamaran.resources
+F:\ТехПрог\PIbd-22_Podkorytova_Y.V._C_Sharp\PIbd-22_Podkorytova_Y.V._C_Sharp\WindowsFormsCatamaran\WindowsFormsCatamaran\obj\Debug\WindowsFormsCatamaran.Properties.Resources.resources
+F:\ТехПрог\PIbd-22_Podkorytova_Y.V._C_Sharp\PIbd-22_Podkorytova_Y.V._C_Sharp\WindowsFormsCatamaran\WindowsFormsCatamaran\obj\Debug\WindowsFormsCatamaran.csproj.GenerateResource.cache
+F:\ТехПрог\PIbd-22_Podkorytova_Y.V._C_Sharp\PIbd-22_Podkorytova_Y.V._C_Sharp\WindowsFormsCatamaran\WindowsFormsCatamaran\obj\Debug\WindowsFormsCatamaran.csproj.CoreCompileInputs.cache
+F:\ТехПрог\PIbd-22_Podkorytova_Y.V._C_Sharp\PIbd-22_Podkorytova_Y.V._C_Sharp\WindowsFormsCatamaran\WindowsFormsCatamaran\obj\Debug\WindowsFormsCatamaran.exe
+F:\ТехПрог\PIbd-22_Podkorytova_Y.V._C_Sharp\PIbd-22_Podkorytova_Y.V._C_Sharp\WindowsFormsCatamaran\WindowsFormsCatamaran\obj\Debug\WindowsFormsCatamaran.pdb
