@@ -32,10 +32,9 @@ namespace WindowsFormsCatamaran
 			Draw();
 		}
 
-		/// Обработка нажатия кнопок управления
+		// Обработка нажатия кнопок управления
 		private void buttonMove_Click(object sender, EventArgs e)
 		{
-			//получаем имя кнопки
 			string name = (sender as Button).Name;
 			switch (name)
 			{

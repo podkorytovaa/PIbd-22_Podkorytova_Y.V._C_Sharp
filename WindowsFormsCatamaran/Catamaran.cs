@@ -9,7 +9,7 @@ namespace WindowsFormsCatamaran
         private float _startPosY; // Правая кооридната отрисовки катамарана
         private int _pictureWidth; // Ширина окна отрисовки
         private int _pictureHeight; // Высота окна отрисовки
-        private readonly int catamaranWidth = 110; // Ширина отрисовки катамарана
+        private readonly int catamaranWidth = 105; // Ширина отрисовки катамарана
         private readonly int catamaranHeight = 80; // Высота отрисовки катамарана
         public int MaxSpeed { private set; get; } // Максимальная скорость
         public float Weight { private set; get; } // Вес катамарана
@@ -54,7 +54,7 @@ namespace WindowsFormsCatamaran
             _pictureHeight = height;
         }
 
-        /// Изменение направления пермещения
+        // Изменение направления пермещения
         /// <param name="direction">Направление</param>
         public void MoveTransport(Direction direction)
         {
@@ -84,7 +84,7 @@ namespace WindowsFormsCatamaran
                     break;
                 //вниз
                 case Direction.Down:
-                    if (_startPosY + step < _pictureHeight - catamaranHeight - 145)
+                    if (_startPosY + step < _pictureHeight - catamaranHeight)
                     {
                         _startPosY += step;
                     }
@@ -92,11 +92,11 @@ namespace WindowsFormsCatamaran
             }
         }
 
-        /// Отрисовка катамарана
+        // Отрисовка катамарана
         public void DrawTransport(Graphics g)
         {
             Pen pen = new Pen(Color.Black);
-            // отрисуем сперва основной корпус
+            // основной корпус
             if (Body)
             {
                 Brush body_catamaran = new SolidBrush(MainColor);
@@ -114,7 +114,7 @@ namespace WindowsFormsCatamaran
                 g.FillEllipse(floor, _startPosX + 5, _startPosY + 30, 75, 20);
             }
 
-            // и боковые корпуса
+            // боковые корпуса
             Pen pen2 = new Pen(Color.Blue);
             Brush corpus = new SolidBrush(DopColor);
             if (LeftCorpus)
@@ -140,7 +140,7 @@ namespace WindowsFormsCatamaran
                 g.DrawPolygon(pen2, points3);
             }
 
-            // теперь отрисуем балки
+            // балки
             if (Balks)
             {
                 Brush balk = new SolidBrush(Color.Black);
