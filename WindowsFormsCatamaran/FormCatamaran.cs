@@ -6,7 +6,7 @@ namespace WindowsFormsCatamaran
 {
 	public partial class FormCatamaran : Form
 	{
-		private Catamaran catamaran;
+		private ITransport boat;
 
 		// Конструктор
 		public FormCatamaran()
@@ -19,16 +19,25 @@ namespace WindowsFormsCatamaran
 		{
 			Bitmap bmp = new Bitmap(pictureBoxCatamaran.Width, pictureBoxCatamaran.Height);
 			Graphics gr = Graphics.FromImage(bmp);
-			catamaran.DrawTransport(gr);
+			boat.DrawTransport(gr);
 			pictureBoxCatamaran.Image = bmp;
 		}
 
-		// Обработка нажатия кнопки "Создать"
-		private void buttonCreate_Click(object sender, EventArgs e)
+		// Обработка нажатия кнопки "Создать лодку"
+		private void buttonCreateBoat_Click(object sender, EventArgs e)
 		{
 			Random rnd = new Random();
-			catamaran = new Catamaran();
-			catamaran.Init(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Blue, Color.White, true, true, true, true); catamaran.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), pictureBoxCatamaran.Width, pictureBoxCatamaran.Height);
+			boat = new Boat(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Blue);
+			boat.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), pictureBoxCatamaran.Width, pictureBoxCatamaran.Height);
+			Draw();
+		}
+
+		// Обработка нажатия кнопки "Создать катамаран"
+		private void buttonCreateCatamaran_Click(object sender, EventArgs e)
+		{
+			Random rnd = new Random();
+			boat = new Catamaran(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Blue, Color.White, true, true, true, true);
+			boat.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), pictureBoxCatamaran.Width, pictureBoxCatamaran.Height);
 			Draw();
 		}
 
@@ -39,16 +48,16 @@ namespace WindowsFormsCatamaran
 			switch (name)
 			{
 				case "buttonUp":
-					catamaran.MoveTransport(Direction.Up);
+					boat.MoveTransport(Direction.Up);
 					break;
 				case "buttonDown":
-					catamaran.MoveTransport(Direction.Down);
+					boat.MoveTransport(Direction.Down);
 					break;
 				case "buttonLeft":
-					catamaran.MoveTransport(Direction.Left);
+					boat.MoveTransport(Direction.Left);
 					break;
 				case "buttonRight":
-					catamaran.MoveTransport(Direction.Right);
+					boat.MoveTransport(Direction.Right);
 					break;
 			}
 			Draw();

@@ -29,11 +29,12 @@
 		private void InitializeComponent()
 		{
             this.pictureBoxCatamaran = new System.Windows.Forms.PictureBox();
-            this.buttonCreate = new System.Windows.Forms.Button();
+            this.buttonCreateCatamaran = new System.Windows.Forms.Button();
             this.buttonRight = new System.Windows.Forms.Button();
             this.buttonDown = new System.Windows.Forms.Button();
             this.buttonLeft = new System.Windows.Forms.Button();
             this.buttonUp = new System.Windows.Forms.Button();
+            this.buttonCreateBoat = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCatamaran)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,18 +47,18 @@
             this.pictureBoxCatamaran.TabIndex = 0;
             this.pictureBoxCatamaran.TabStop = false;
             // 
-            // buttonCreate
+            // buttonCreateCatamaran
             // 
-            this.buttonCreate.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.buttonCreate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonCreate.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.buttonCreate.Location = new System.Drawing.Point(30, 550);
-            this.buttonCreate.Name = "buttonCreate";
-            this.buttonCreate.Size = new System.Drawing.Size(100, 40);
-            this.buttonCreate.TabIndex = 1;
-            this.buttonCreate.Text = "Создать";
-            this.buttonCreate.UseVisualStyleBackColor = false;
-            this.buttonCreate.Click += new System.EventHandler(this.buttonCreate_Click);
+            this.buttonCreateCatamaran.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.buttonCreateCatamaran.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonCreateCatamaran.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonCreateCatamaran.Location = new System.Drawing.Point(168, 563);
+            this.buttonCreateCatamaran.Name = "buttonCreateCatamaran";
+            this.buttonCreateCatamaran.Size = new System.Drawing.Size(150, 36);
+            this.buttonCreateCatamaran.TabIndex = 1;
+            this.buttonCreateCatamaran.Text = "Создать катамаран";
+            this.buttonCreateCatamaran.UseVisualStyleBackColor = false;
+            this.buttonCreateCatamaran.Click += new System.EventHandler(this.buttonCreateCatamaran_Click);
             // 
             // buttonRight
             // 
@@ -107,16 +108,30 @@
             this.buttonUp.UseVisualStyleBackColor = true;
             this.buttonUp.Click += new System.EventHandler(this.buttonMove_Click);
             // 
+            // buttonCreateBoat
+            // 
+            this.buttonCreateBoat.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.buttonCreateBoat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonCreateBoat.ForeColor = System.Drawing.Color.White;
+            this.buttonCreateBoat.Location = new System.Drawing.Point(12, 563);
+            this.buttonCreateBoat.Name = "buttonCreateBoat";
+            this.buttonCreateBoat.Size = new System.Drawing.Size(150, 36);
+            this.buttonCreateBoat.TabIndex = 6;
+            this.buttonCreateBoat.Text = "Создать лодку";
+            this.buttonCreateBoat.UseVisualStyleBackColor = false;
+            this.buttonCreateBoat.Click += new System.EventHandler(this.buttonCreateBoat_Click);
+            // 
             // FormCatamaran
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
+            this.Controls.Add(this.buttonCreateBoat);
             this.Controls.Add(this.buttonUp);
             this.Controls.Add(this.buttonLeft);
             this.Controls.Add(this.buttonDown);
             this.Controls.Add(this.buttonRight);
-            this.Controls.Add(this.buttonCreate);
+            this.Controls.Add(this.buttonCreateCatamaran);
             this.Controls.Add(this.pictureBoxCatamaran);
             this.Name = "FormCatamaran";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -129,11 +144,12 @@
 		#endregion
 
 		private System.Windows.Forms.PictureBox pictureBoxCatamaran;
-		private System.Windows.Forms.Button buttonCreate;
-		private System.Windows.Forms.Button buttonRight;
+        private System.Windows.Forms.Button buttonCreateCatamaran;
+        private System.Windows.Forms.Button buttonRight;
 		private System.Windows.Forms.Button buttonDown;
 		private System.Windows.Forms.Button buttonLeft;
 		private System.Windows.Forms.Button buttonUp;
-	}
+        private System.Windows.Forms.Button buttonCreateBoat;
+    }
 }
 
