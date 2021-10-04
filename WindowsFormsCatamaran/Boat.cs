@@ -46,7 +46,6 @@ namespace WindowsFormsCatamaran
 					break;
 				//влево
 				case Direction.Left:
-					// Продумать логику
 					if (_startPosX - step > 0)
 					{
 						_startPosX -= step;
@@ -54,7 +53,6 @@ namespace WindowsFormsCatamaran
 					break;
 				//вверх
 				case Direction.Up:
-					// Продумать логику
 					if (_startPosY - step > 0)
 					{
 						_startPosY -= step;
