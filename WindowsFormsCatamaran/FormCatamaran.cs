@@ -14,6 +14,13 @@ namespace WindowsFormsCatamaran
 			InitializeComponent();
 		}
 
+		// Передача лодки на форму
+		public void SetBoat(ITransport boat)
+		{
+			this.boat = boat;
+			Draw();
+		}
+
 		// Метод отрисовки катамарана
 		private void Draw()
 		{
@@ -48,16 +55,16 @@ namespace WindowsFormsCatamaran
 			switch (name)
 			{
 				case "buttonUp":
-					boat.MoveTransport(Direction.Up);
+					boat?.MoveTransport(Direction.Up);
 					break;
 				case "buttonDown":
-					boat.MoveTransport(Direction.Down);
+					boat?.MoveTransport(Direction.Down);
 					break;
 				case "buttonLeft":
-					boat.MoveTransport(Direction.Left);
+					boat?.MoveTransport(Direction.Left);
 					break;
 				case "buttonRight":
-					boat.MoveTransport(Direction.Right);
+					boat?.MoveTransport(Direction.Right);
 					break;
 			}
 			Draw();
