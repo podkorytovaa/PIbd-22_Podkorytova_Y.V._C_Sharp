@@ -8,6 +8,7 @@ namespace WindowsFormsCatamaran
 		protected readonly int catamaranHeight = 55; // Высота отрисовки лодки
 
 		// Конструктор
+
 		/// <param name="maxSpeed">Максимальная скорость</param>
 		/// <param name="weight">Вес лодки</param>
 		/// <param name="mainColor">Основной цвет</param>

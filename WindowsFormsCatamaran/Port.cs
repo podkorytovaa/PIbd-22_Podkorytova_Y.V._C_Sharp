@@ -1,11 +1,13 @@
 ﻿using System.Drawing;
+using System.Collections.Generic;
 
 namespace WindowsFormsCatamaran
 {
 	// Параметризованный класс для хранения набора объектов от интерфейса ITransport
 	public class Port<T> where T : class, ITransport
 	{
-		private readonly T[] _places; // Массив объектов, которые храним
+		private readonly List<T> _places; // Список объектов, которые храним
+		private readonly int _maxCount; // Максимальное количество мест на парковке
 		private readonly int pictureWidth; // Ширина окна отрисовки
 		private readonly int pictureHeight; // Высота окна отрисовки		
 		private readonly int _placeSizeWidth = 220; // Ширина парковочного места
@@ -16,57 +18,46 @@ namespace WindowsFormsCatamaran
 		{
 			int width = picWidth / _placeSizeWidth;
 			int height = picHeight / _placeSizeHeight;
-			_places = new T[width * height];
+			_maxCount = width * height;
 			pictureWidth = picWidth;
 			pictureHeight = picHeight;
+			_places = new List<T>();
 		}
 
 		// Перегрузка оператора сложения
 		public static int operator +(Port<T> p, T boat)
 		{
-			int i, j;
-			i = 0;
-			while (i < p.pictureHeight / p._placeSizeHeight)
+			if (p._places.Count < p._maxCount)
 			{
-				j = 0;
-				while (j < p.pictureWidth / p._placeSizeWidth)
-				{
-					if (p._places[i * (p.pictureWidth / p._placeSizeWidth) + j] == null)
-					{
-						p._places[i * (p.pictureWidth / p._placeSizeWidth) + j] = boat;
-						boat.SetPosition(p._placeSizeWidth * j + 5, p._placeSizeHeight * i + 5, p.pictureWidth, p.pictureHeight);
-						return (i * (p.pictureWidth / p._placeSizeWidth) + j);
-					}
-					j++;
-				}
-				i++;
+				p._places.Add(boat);
+				return p._places.Count - 1;
 			}
-			return -1;
+			else
+				return -1;
+
 		}
 
 		// Перегрузка оператора вычитания
 		public static T operator -(Port<T> p, int index)
 		{
-			if (index < 0 || index >= p._places.Length) return null;
-			else
+			if (index > -1 && index < p._places.Count)
 			{
-				if (p._places[index] == null) return null;
-				else
-				{
-					T temp = p._places[index];
-					p._places[index] = null;
-					return temp;
-				}
+				T t = p._places[index];
+				p._places.RemoveAt(index);
+				return t;
 			}
+			else
+				return null;
 		}
 
 		// Метод отрисовки гавани
 		public void Draw(Graphics g)
 		{
 			DrawMarking(g);
-			for (int i = 0; i < _places.Length; i++)
-			{
-				_places[i]?.DrawTransport(g);
+			for (int i = 0; i < _places.Count; ++i) 
+			{ 
+				_places[i].SetPosition(i / 5 * _placeSizeWidth + 5, i % 5 * _placeSizeHeight + 5, pictureWidth, pictureHeight); 
+				_places[i].DrawTransport(g); 
 			}
 		}
 
