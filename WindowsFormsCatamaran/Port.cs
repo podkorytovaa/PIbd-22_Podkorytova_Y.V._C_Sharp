@@ -34,7 +34,7 @@ namespace WindowsFormsCatamaran
 					if (p._places[i * (p.pictureWidth / p._placeSizeWidth) + j] == null)
 					{
 						p._places[i * (p.pictureWidth / p._placeSizeWidth) + j] = boat;
-						boat.SetPosition(p._placeSizeWidth * j + 5, p._placeSizeHeight * i + 5, p.pictureHeight, p.pictureWidth);
+						boat.SetPosition(p._placeSizeWidth * j + 5, p._placeSizeHeight * i + 5, p.pictureWidth, p.pictureHeight);
 						return (i * (p.pictureWidth / p._placeSizeWidth) + j);
 					}
 					j++;
@@ -50,11 +50,14 @@ namespace WindowsFormsCatamaran
 			if (index < 0 || index >= p._places.Length) return null;
 			else
 			{
-				T temp = p._places[index];
-				p._places[index] = null;
-				return temp;
+				if (p._places[index] == null) return null;
+				else
+				{
+					T temp = p._places[index];
+					p._places[index] = null;
+					return temp;
+				}
 			}
-			return null;
 		}
 
 		// Метод отрисовки гавани
@@ -71,6 +74,8 @@ namespace WindowsFormsCatamaran
 		private void DrawMarking(Graphics g)
 		{
 			Pen pen = new Pen(Color.Black, 3);
+			Brush water = new SolidBrush(Color.LightBlue);
+			g.FillRectangle(water, 0, 0, pictureWidth, pictureHeight);
 			for (int i = 0; i < pictureWidth / _placeSizeWidth; i++)
 			{
 				for (int j = 0; j < pictureHeight / _placeSizeHeight + 1; ++j)

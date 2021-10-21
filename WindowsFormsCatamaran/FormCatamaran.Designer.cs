@@ -43,7 +43,7 @@
             this.pictureBoxCatamaran.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBoxCatamaran.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxCatamaran.Name = "pictureBoxCatamaran";
-            this.pictureBoxCatamaran.Size = new System.Drawing.Size(884, 611);
+            this.pictureBoxCatamaran.Size = new System.Drawing.Size(680, 451);
             this.pictureBoxCatamaran.TabIndex = 0;
             this.pictureBoxCatamaran.TabStop = false;
             // 
@@ -52,7 +52,7 @@
             this.buttonCreateCatamaran.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.buttonCreateCatamaran.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonCreateCatamaran.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.buttonCreateCatamaran.Location = new System.Drawing.Point(168, 563);
+            this.buttonCreateCatamaran.Location = new System.Drawing.Point(168, 403);
             this.buttonCreateCatamaran.Name = "buttonCreateCatamaran";
             this.buttonCreateCatamaran.Size = new System.Drawing.Size(150, 36);
             this.buttonCreateCatamaran.TabIndex = 1;
@@ -65,7 +65,7 @@
             this.buttonRight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRight.BackgroundImage = global::WindowsFormsCatamaran.Properties.Resources.right;
             this.buttonRight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonRight.Location = new System.Drawing.Point(812, 539);
+            this.buttonRight.Location = new System.Drawing.Point(608, 379);
             this.buttonRight.Name = "buttonRight";
             this.buttonRight.Size = new System.Drawing.Size(60, 60);
             this.buttonRight.TabIndex = 2;
@@ -77,7 +77,7 @@
             this.buttonDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonDown.BackgroundImage = global::WindowsFormsCatamaran.Properties.Resources.down;
             this.buttonDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonDown.Location = new System.Drawing.Point(746, 539);
+            this.buttonDown.Location = new System.Drawing.Point(542, 379);
             this.buttonDown.Name = "buttonDown";
             this.buttonDown.Size = new System.Drawing.Size(60, 60);
             this.buttonDown.TabIndex = 3;
@@ -89,7 +89,7 @@
             this.buttonLeft.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonLeft.BackgroundImage = global::WindowsFormsCatamaran.Properties.Resources.left;
             this.buttonLeft.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonLeft.Location = new System.Drawing.Point(680, 539);
+            this.buttonLeft.Location = new System.Drawing.Point(476, 379);
             this.buttonLeft.Name = "buttonLeft";
             this.buttonLeft.Size = new System.Drawing.Size(60, 60);
             this.buttonLeft.TabIndex = 4;
@@ -101,7 +101,7 @@
             this.buttonUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonUp.BackgroundImage = global::WindowsFormsCatamaran.Properties.Resources.up;
             this.buttonUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonUp.Location = new System.Drawing.Point(746, 473);
+            this.buttonUp.Location = new System.Drawing.Point(542, 313);
             this.buttonUp.Name = "buttonUp";
             this.buttonUp.Size = new System.Drawing.Size(60, 60);
             this.buttonUp.TabIndex = 5;
@@ -113,7 +113,7 @@
             this.buttonCreateBoat.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.buttonCreateBoat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonCreateBoat.ForeColor = System.Drawing.Color.White;
-            this.buttonCreateBoat.Location = new System.Drawing.Point(12, 563);
+            this.buttonCreateBoat.Location = new System.Drawing.Point(12, 403);
             this.buttonCreateBoat.Name = "buttonCreateBoat";
             this.buttonCreateBoat.Size = new System.Drawing.Size(150, 36);
             this.buttonCreateBoat.TabIndex = 6;
@@ -125,7 +125,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 611);
+            this.ClientSize = new System.Drawing.Size(680, 451);
             this.Controls.Add(this.buttonCreateBoat);
             this.Controls.Add(this.buttonUp);
             this.Controls.Add(this.buttonLeft);
