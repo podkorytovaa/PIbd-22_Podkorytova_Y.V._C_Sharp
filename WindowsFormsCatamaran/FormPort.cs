@@ -45,6 +45,12 @@ namespace WindowsFormsCatamaran
 				portCollection[listBoxPort.SelectedItem.ToString()].Draw(gr);
 				pictureBoxPort.Image = bmp;
 			}
+			else
+			{
+				Bitmap bmp = new Bitmap(pictureBoxPort.Width, pictureBoxPort.Height);
+				Graphics gr = Graphics.FromImage(bmp);
+				pictureBoxPort.Image = bmp;
+			}
 		}
 
 		// Обработка нажатия кнопки "Добавить парковку"
@@ -66,8 +72,9 @@ namespace WindowsFormsCatamaran
 			{ 
 				if (MessageBox.Show($"Удалить гавань {listBoxPort.SelectedItem.ToString()}?", "Удаление", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) 
 				{ 
-					portCollection.DelParking(textBoxNewLevelName.Text); 
-					ReloadLevels(); 
+					portCollection.DelParking(listBoxPort.SelectedItem.ToString()); 
+					ReloadLevels();
+					Draw();
 				} 
 			}
 		}
