@@ -79,52 +79,6 @@ namespace WindowsFormsCatamaran
 			}
 		}
 
-		// Обработка нажатия кнопки "Пришвартовать лодку"
-		private void buttonSetBoat_Click(object sender, EventArgs e)
-		{
-			if (listBoxPort.SelectedIndex > -1)
-			{
-				ColorDialog dialog = new ColorDialog();
-				if (dialog.ShowDialog() == DialogResult.OK)
-				{
-					var boat = new Boat(100, 1000, dialog.Color);
-					if (portCollection[listBoxPort.SelectedItem.ToString()] + boat >= 0)
-					{
-						Draw();
-					}
-					else
-					{
-						MessageBox.Show("Гавань переполнена");
-					}
-				}
-			}
-		}
-
-		// Обработка нажатия кнопки "Пришвартовать катамаран"
-		private void buttonSetCatamaran_Click(object sender, EventArgs e)
-		{
-			if (listBoxPort.SelectedIndex > -1)
-			{
-				ColorDialog dialog = new ColorDialog();
-				if (dialog.ShowDialog() == DialogResult.OK)
-				{
-					ColorDialog dialogDop = new ColorDialog();
-					if (dialogDop.ShowDialog() == DialogResult.OK)
-					{
-						var catamaran = new Catamaran(100, 1000, dialog.Color, dialogDop.Color, true, true, true, true);
-						if (portCollection[listBoxPort.SelectedItem.ToString()] + catamaran >= 0)
-						{
-							Draw();
-						}
-						else
-						{
-							MessageBox.Show("Гавань переполнена");
-						}
-					}
-				}
-			}
-		}
-
 		// Обработка нажатия кнопки "Забрать"
 		private void buttonTakeBoat_Click(object sender, EventArgs e)
 		{
@@ -145,6 +99,33 @@ namespace WindowsFormsCatamaran
 		private void listBoxPort_SelectedIndexChanged(object sender, EventArgs e) 
 		{ 
 			Draw(); 
+		}
+
+		// Обработка нажатия кнопки "Добавить лодку"
+		private void buttonAddBoat_Click(object sender, EventArgs e)
+        {
+			if (listBoxPort.SelectedIndex > -1)
+			{
+				var formCatamaranConfig = new FormCatamaranConfig();
+				formCatamaranConfig.AddEvent(AddBoat);
+				formCatamaranConfig.Show();
+			}
+		}
+
+		// Метод добавления
+		private void AddBoat(Vehicle boat) 
+		{ 
+			if (boat != null && listBoxPort.SelectedIndex > -1) 
+			{
+				if ((portCollection[listBoxPort.SelectedItem.ToString()] + boat) > - 1) 
+				{ 
+					Draw(); 
+				} 
+				else 
+				{ 
+					MessageBox.Show("Лодку не удалось поставить"); 
+				} 
+			} 
 		}
 	}
 }

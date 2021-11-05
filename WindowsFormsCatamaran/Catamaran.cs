@@ -9,24 +9,16 @@ namespace WindowsFormsCatamaran
         public bool Body { private set; get; } // Признак наличия корпуса
         public bool LeftCorpus { private set; get; } // Признак наличия левого бокового корпуса
         public bool RightCorpus { private set; get; } // Признак наличия правого бокового корпуса
-        public bool Balks { private set; get; } // Признак наличия балок
+        public bool Seat { private set; get; } // Признак наличия сидения
 
         // Конструктор
-        /// <param name="maxSpeed">Максимальная скорость</param>
-        /// <param name="weight">Вес катамарана</param>
-        /// <param name="mainColor">Основной цвет</param>
-        /// <param name="dopColor">Дополнительный цвет</param>
-        /// <param name="body">Признак наличия корпуса</param>
-        /// <param name="leftCorpus">Признак наличия левого бокового корпуса</param>
-        /// <param name="rightCorpus">Признак наличия правого бокового корпуса</param>
-        /// <param name="balks">Признак наличия балок</param>
-        public Catamaran(int maxSpeed, float weight, Color mainColor, Color dopColor, bool body, bool leftCorpus, bool rightCorpus, bool balks) : base(maxSpeed, weight, mainColor, 105, 80)
+        public Catamaran(int maxSpeed, float weight, Color mainColor, Color dopColor, bool body, bool leftCorpus, bool rightCorpus, bool seat) : base(maxSpeed, weight, mainColor, 105, 80)
         {
             DopColor = dopColor;
             Body = body;
             LeftCorpus = leftCorpus;
             RightCorpus = rightCorpus;
-            Balks = balks;
+            Seat = seat;
         }
 
         // Отрисовка катамарана
@@ -36,8 +28,9 @@ namespace WindowsFormsCatamaran
             base.DrawTransport(g);
 
             // и боковые корпуса
-            Pen pen2 = new Pen(Color.Blue);
+            Pen pen2 = new Pen(Color.Black);
             Brush corpus = new SolidBrush(DopColor);
+            Brush balk = new SolidBrush(Color.Black);
             if (LeftCorpus)
             {
                 PointF p1_1 = new PointF(_startPosX, _startPosY);
@@ -48,6 +41,9 @@ namespace WindowsFormsCatamaran
                 PointF[] points2 = { p1_1, p1_2, p1_3, p1_4, p1_5 };
                 g.FillPolygon(corpus, points2);
                 g.DrawPolygon(pen2, points2);
+
+                g.FillRectangle(balk, _startPosX + 10, _startPosY + 10, 5, 20);
+                g.FillRectangle(balk, _startPosX + 60, _startPosY + 10, 5, 20);
             }
             if (RightCorpus)
             {
@@ -59,17 +55,22 @@ namespace WindowsFormsCatamaran
                 PointF[] points3 = { p2_1, p2_2, p2_3, p2_4, p2_5 };
                 g.FillPolygon(corpus, points3);
                 g.DrawPolygon(pen2, points3);
+                
+                g.FillRectangle(balk, _startPosX + 10, _startPosY + 51, 5, 20);
+                g.FillRectangle(balk, _startPosX + 60, _startPosY + 51, 5, 20);
             }
 
             // теперь отрисуем балки
-            if (Balks)
+            if (Seat)
             {
-                Brush balk = new SolidBrush(Color.Black);
-                g.FillRectangle(balk, _startPosX + 10, _startPosY + 10, 5, 20);
-                g.FillRectangle(balk, _startPosX + 10, _startPosY + 51, 5, 20);
-                g.FillRectangle(balk, _startPosX + 60, _startPosY + 10, 5, 20);
-                g.FillRectangle(balk, _startPosX + 60, _startPosY + 51, 5, 20);
+                g.FillRectangle(balk, _startPosX + 30, _startPosY + 30, 10, 20);
             }
+        }
+
+        // Смена дополнительного цвета 
+        public void SetDopColor(Color color) 
+        { 
+            DopColor = color; 
         }
     }
 }

@@ -55,6 +55,12 @@
     <Compile Include="FormCatamaran.Designer.cs">
       <DependentUpon>FormCatamaran.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormCatamaranConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCatamaranConfig.Designer.cs">
+      <DependentUpon>FormCatamaranConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormPort.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +75,9 @@
     <Compile Include="Vehicle.cs" />
     <EmbeddedResource Include="FormCatamaran.resx">
       <DependentUpon>FormCatamaran.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCatamaranConfig.resx">
+      <DependentUpon>FormCatamaranConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPort.resx">
       <DependentUpon>FormPort.cs</DependentUpon>
