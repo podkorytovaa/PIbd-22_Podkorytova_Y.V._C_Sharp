@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace WindowsFormsCatamaran
 {
@@ -6,12 +7,9 @@ namespace WindowsFormsCatamaran
 	{
 		protected readonly int catamaranWidth = 105; // Ширина отрисовки лодки
 		protected readonly int catamaranHeight = 55; // Высота отрисовки лодки
+		protected readonly char separator = ';'; // Разделитель для записи информации по объекту в файл 
 
 		// Конструктор
-
-		/// <param name="maxSpeed">Максимальная скорость</param>
-		/// <param name="weight">Вес лодки</param>
-		/// <param name="mainColor">Основной цвет</param>
 		public Boat(int maxSpeed, float weight, Color mainColor)
 		{
 			MaxSpeed = maxSpeed;
@@ -19,12 +17,19 @@ namespace WindowsFormsCatamaran
 			MainColor = mainColor;
 		}
 
+		// Конструктор для загрузки с файла
+		public Boat(string info)
+		{
+			string[] strs = info.Split(separator);
+			if (strs.Length == 3)
+			{
+				MaxSpeed = Convert.ToInt32(strs[0]);
+				Weight = Convert.ToInt32(strs[1]);
+				MainColor = Color.FromName(strs[2]);
+			}
+		}
+
 		// Конструктор с изменением размеров лодки
-		/// <param name="maxSpeed">Максимальная скорость</param>
-		/// <param name="weight">Вес лодки</param>
-		/// <param name="mainColor">Основной цвет</param>
-		/// <param name="catamaranWidth">Ширина отрисовки лодки</param>
-		/// <param name="catamaranHeight">Высота отрисовки лодки</param>
 		protected Boat(int maxSpeed, float weight, Color mainColor, int catamaranWidth, int catamaranHeight)
 		{
 			MaxSpeed = maxSpeed;
@@ -33,6 +38,7 @@ namespace WindowsFormsCatamaran
 			this.catamaranWidth = catamaranWidth;
 			this.catamaranHeight = catamaranHeight;
 		}
+
 		public override void MoveTransport(Direction direction)
 		{
 			float step = MaxSpeed * 100 / Weight;
@@ -68,6 +74,7 @@ namespace WindowsFormsCatamaran
 					break;
 			}
 		}
+
 		public override void DrawTransport(Graphics g)
 		{
 			Pen pen = new Pen(Color.Black);
@@ -84,6 +91,11 @@ namespace WindowsFormsCatamaran
 			Brush floor = new SolidBrush(Color.White);
 			g.DrawEllipse(pen, _startPosX + 5, _startPosY + 30, 75, 20);
 			g.FillEllipse(floor, _startPosX + 5, _startPosY + 30, 75, 20);
+		}
+
+		public override string ToString() 
+		{ 
+			return $"{MaxSpeed}{separator}{Weight}{separator}{MainColor.Name}"; 
 		}
 	}
 }

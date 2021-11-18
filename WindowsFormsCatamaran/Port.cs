@@ -7,7 +7,7 @@ namespace WindowsFormsCatamaran
 	public class Port<T> where T : class, ITransport
 	{
 		private readonly List<T> _places; // Список объектов, которые храним
-		private readonly int _maxCount; // Максимальное количество мест на парковке
+		private readonly int _maxCount; // Максимальное количество мест в гавани
 		private readonly int pictureWidth; // Ширина окна отрисовки
 		private readonly int pictureHeight; // Высота окна отрисовки		
 		private readonly int _placeSizeWidth = 220; // Ширина парковочного места
@@ -75,6 +75,16 @@ namespace WindowsFormsCatamaran
 				}
 				g.DrawLine(pen, i * _placeSizeWidth, 0, i * _placeSizeWidth, (pictureHeight / _placeSizeHeight) * _placeSizeHeight);
 			}
+		}
+
+		// Функция получения элементы из списка
+		public T GetNext(int index)
+		{
+			if (index < 0 || index >= _places.Count) 
+			{ 
+				return null; 
+			}
+			return _places[index];
 		}
 	}
 }

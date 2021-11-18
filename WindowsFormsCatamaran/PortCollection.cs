@@ -1,16 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace WindowsFormsCatamaran
 {
-    // Класс-коллекция парковок
+    // Класс-коллекция гаваней
     class PortCollection
     {
-        readonly Dictionary<string, Port<Vehicle>> portStages; // Словарь (хранилище) с парковками
-        public List<string> Keys => portStages.Keys.ToList(); // Возвращение списка названий праковок
+        readonly Dictionary<string, Port<Vehicle>> portStages; // Словарь (хранилище) с гаванями
+        public List<string> Keys => portStages.Keys.ToList(); // Возвращение списка названий гаваней
         private readonly int pictureWidth; // Ширина окна отрисовки
         private readonly int pictureHeight; // Высота окна отрисовки
-
+        private readonly char separator = ':'; // Разделитель для записи информации в файл
+        
         // Конструктор 
         public PortCollection(int pictureWidth, int pictureHeight) 
         { 
@@ -19,7 +23,7 @@ namespace WindowsFormsCatamaran
             this.pictureHeight = pictureHeight; 
         }
 
-        // Добавление парковки
+        // Добавление гавани
         public void AddParking(string name)         
         {
             if (portStages.ContainsKey(name)) 
@@ -27,14 +31,14 @@ namespace WindowsFormsCatamaran
             portStages.Add(name, new Port<Vehicle>(pictureWidth, pictureHeight));
         } 
 
-        // Удаление парковки
+        // Удаление гавани
         public void DelParking(string name)
         {
             if (portStages.ContainsKey(name))
                 portStages.Remove(name);
         } 
 
-        // Доступ к парковке
+        // Доступ к гавани
         public Port<Vehicle> this[string ind]
         {
             get 
@@ -45,5 +49,91 @@ namespace WindowsFormsCatamaran
             }
         }
 
-    }
+        // Сохранение информации по лодкам в гаванях в файл
+        public bool SaveData(string filename)
+        {
+            if (File.Exists(filename))
+            {
+                File.Delete(filename);
+            }
+            using (StreamWriter sw = new StreamWriter(filename))
+            {
+                sw.Write($"PortCollection{Environment.NewLine}", sw);
+                foreach (var level in portStages)
+                {
+                    sw.Write($"Port{separator}{level.Key}{Environment.NewLine}", sw);
+                    ITransport boat = null;
+                    for (int i = 0; (boat = level.Value.GetNext(i)) != null; i++)
+                    {
+                        if (boat != null)
+                        {
+                            if (boat.GetType().Name == "Boat")
+                            {
+                                sw.Write($"Boat{separator}", sw);
+                            }
+                            if (boat.GetType().Name == "Catamaran")
+                            {
+                                sw.Write($"Catamaran{separator}", sw);
+                            }
+                            sw.Write(boat + Environment.NewLine, sw);
+                        }
+                    }
+                }
+            }             
+            return true;         
+        } 
+
+        // Загрузка информации по транспорту в гаванях из файла 
+        public bool LoadData(string filename)         
+        {             
+            if (!File.Exists(filename))             
+            {                 
+                return false;             
+            }
+            using (StreamReader sr = new StreamReader(filename, Encoding.UTF8))
+            {
+                string line = sr.ReadLine();
+                if (line.Contains("PortCollection"))
+                {
+                    portStages.Clear();
+                }
+                else
+                {
+                    return false;
+                }
+                Vehicle boat = null;
+                string key = string.Empty;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    if (line.Contains("Port"))
+                    {
+                        key = line.Split(separator)[1];
+                        portStages.Add(key, new Port<Vehicle>(pictureWidth, pictureHeight));
+                        continue;
+                    }
+
+                    if (string.IsNullOrEmpty(line))
+                    {
+                        continue;
+                    }
+
+                    if (line.Split(separator)[0] == "Boat")
+                    {
+                        boat = new Boat(line.Split(separator)[1]);
+                    }
+                    else if (line.Split(separator)[0] == "Catamaran")
+                    {
+                        boat = new Catamaran(line.Split(separator)[1]);
+                    }
+
+                    var result = portStages[key] + boat;
+                    if (result == -1)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+    } 
 }
