@@ -6,7 +6,7 @@ namespace WindowsFormsCatamaran
 {
 	public partial class FormPort : Form
 	{
-		private readonly PortCollection portCollection; /// Объект от класса-коллекции гаваней
+		private readonly PortCollection portCollection; // Объект от класса-коллекции гаваней
 
 		public FormPort()
 		{
