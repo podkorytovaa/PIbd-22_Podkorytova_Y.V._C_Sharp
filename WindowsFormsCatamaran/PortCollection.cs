@@ -24,37 +24,46 @@ namespace WindowsFormsCatamaran
         }
 
         // Добавление гавани
-        public void AddParking(string name)         
+        public void AddPort(string name)         
         {
-            if (portStages.ContainsKey(name)) 
-                return;
-            portStages.Add(name, new Port<Vehicle>(pictureWidth, pictureHeight));
+            if (!portStages.ContainsKey(name))
+            {
+                portStages.Add(name, new Port<Vehicle>(pictureWidth, pictureHeight));
+            }
         } 
 
         // Удаление гавани
-        public void DelParking(string name)
+        public void DelPort(string name)
         {
             if (portStages.ContainsKey(name))
+            {
                 portStages.Remove(name);
+            }
         } 
 
         // Доступ к гавани
         public Port<Vehicle> this[string ind]
         {
             get 
-            { 
-                if (portStages.ContainsKey(ind)) 
+            {
+                if (portStages.ContainsKey(ind))
+                {
                     return portStages[ind];
+                }
                 else return null;
             }
         }
 
         // Сохранение информации по лодкам в гаванях в файл
-        public bool SaveData(string filename)
+        public void SaveData(string filename)
         {
             if (File.Exists(filename))
             {
                 File.Delete(filename);
+            }
+            else
+            {
+                throw new FileNotFoundException();
             }
             using (StreamWriter sw = new StreamWriter(filename))
             {
@@ -79,16 +88,15 @@ namespace WindowsFormsCatamaran
                         }
                     }
                 }
-            }             
-            return true;         
+            }                   
         } 
 
         // Загрузка информации по транспорту в гаванях из файла 
-        public bool LoadData(string filename)         
+        public void LoadData(string filename)         
         {             
             if (!File.Exists(filename))             
-            {                 
-                return false;             
+            {
+                throw new FileNotFoundException();
             }
             using (StreamReader sr = new StreamReader(filename, Encoding.UTF8))
             {
@@ -99,7 +107,7 @@ namespace WindowsFormsCatamaran
                 }
                 else
                 {
-                    return false;
+                    throw new FormatException("Неверный формат файла");
                 }
                 Vehicle boat = null;
                 string key = string.Empty;
@@ -129,11 +137,10 @@ namespace WindowsFormsCatamaran
                     var result = portStages[key] + boat;
                     if (result == -1)
                     {
-                        return false;
+                        throw new PortOverflowException();
                     }
                 }
             }
-            return true;
         }
     } 
 }

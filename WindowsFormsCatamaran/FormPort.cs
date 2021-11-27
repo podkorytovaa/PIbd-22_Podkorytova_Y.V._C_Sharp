@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -7,11 +8,13 @@ namespace WindowsFormsCatamaran
 	public partial class FormPort : Form
 	{
 		private readonly PortCollection portCollection; // Объект от класса-коллекции гаваней
+		private readonly Logger logger; // Логгер
 
 		public FormPort()
 		{
 			InitializeComponent();
 			portCollection = new PortCollection(pictureBoxPort.Width, pictureBoxPort.Height);
+			logger = LogManager.GetCurrentClassLogger();
 		}
 
 		// Заполнение listBoxLevels
@@ -61,7 +64,8 @@ namespace WindowsFormsCatamaran
 				MessageBox.Show("Введите название гавани", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); 
 				return; 
 			}
-			portCollection.AddParking(textBoxNewLevelName.Text); 
+			logger.Info($"Добавили гавань {textBoxNewLevelName.Text}");
+			portCollection.AddPort(textBoxNewLevelName.Text); 
 			ReloadLevels();
 		}
 
@@ -71,11 +75,12 @@ namespace WindowsFormsCatamaran
 			if (listBoxPort.SelectedIndex > -1) 
 			{ 
 				if (MessageBox.Show($"Удалить гавань {listBoxPort.SelectedItem.ToString()}?", "Удаление", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) 
-				{ 
-					portCollection.DelParking(listBoxPort.SelectedItem.ToString()); 
+				{
+					logger.Info($"Удалили гавань {listBoxPort.SelectedItem.ToString()}"); 
+					portCollection.DelPort(listBoxPort.SelectedItem.ToString()); 
 					ReloadLevels();
-					Draw();
-				} 
+				}
+				Draw();
 			}
 		}
 
@@ -84,20 +89,35 @@ namespace WindowsFormsCatamaran
 		{
 			if (listBoxPort.SelectedIndex > -1 && maskedTextBox.Text != "")
 			{
-				var boat = portCollection[listBoxPort.SelectedItem.ToString()] - Convert.ToInt32(maskedTextBox.Text);
-				if (boat != null)
+				try
 				{
-					FormCatamaran form = new FormCatamaran();
-					form.SetBoat(boat);
-					form.ShowDialog();
+					var boat = portCollection[listBoxPort.SelectedItem.ToString()] - Convert.ToInt32(maskedTextBox.Text);
+					if (boat != null)
+					{
+						FormCatamaran form = new FormCatamaran();
+						form.SetBoat(boat);
+						form.ShowDialog();
+						logger.Info($"Изъята лодка {boat} с места {maskedTextBox.Text}");
+					}
+					Draw();
 				}
-				Draw();
+				catch (PortNotFoundException ex) 
+				{
+					logger.Warn(ex);
+					MessageBox.Show(ex.Message, "Не найдено", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+				}
+				catch (Exception ex) 
+				{
+					logger.Warn("Неизвестная ошибка при попытке удалить лодку");
+					MessageBox.Show(ex.Message, "Неизвестная ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+				}
 			}
 		}
 
 		// Метод обработки выбора элемента на listBoxLevels
 		private void listBoxPort_SelectedIndexChanged(object sender, EventArgs e) 
-		{ 
+		{
+			logger.Info($"Перешли в гавань {listBoxPort.SelectedItem.ToString()}");
 			Draw(); 
 		}
 
@@ -117,14 +137,28 @@ namespace WindowsFormsCatamaran
 		{ 
 			if (boat != null && listBoxPort.SelectedIndex > -1) 
 			{
-				if ((portCollection[listBoxPort.SelectedItem.ToString()] + boat) > - 1) 
-				{ 
-					Draw(); 
-				} 
-				else 
-				{ 
-					MessageBox.Show("Лодку не удалось поставить"); 
-				} 
+				try
+				{
+					if ((portCollection[listBoxPort.SelectedItem.ToString()] + boat) > -1)
+					{
+						Draw();
+						logger.Info($"Добавлена лодка {boat}");
+					}
+					else
+					{
+						MessageBox.Show("Лодку не удалось пришвартовать");
+					}
+				}
+				catch (PortOverflowException ex) 
+				{
+					logger.Warn($"Гавань переполнена, невозможно добавить лодку");
+					MessageBox.Show(ex.Message, "Переполнение", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+				}
+				catch (Exception ex) 
+				{
+					logger.Warn("Неизвестная ошибка при попытке добавить лодку");
+					MessageBox.Show(ex.Message, "Неизвестная ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+				}
 			} 
 		}
 
@@ -132,15 +166,18 @@ namespace WindowsFormsCatamaran
 		private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
 			if (saveFileDialog.ShowDialog() == DialogResult.OK) 
-			{ 
-				if (portCollection.SaveData(saveFileDialog.FileName)) 
-				{ 
-					MessageBox.Show("Сохранение прошло успешно", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information); 
-				} 
-				else 
-				{ 
-					MessageBox.Show("Не сохранилось", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Error); 
-				} 
+			{
+				try
+				{
+					portCollection.SaveData(saveFileDialog.FileName);
+					MessageBox.Show("Сохранение прошло успешно", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					logger.Info("Сохранено в файл " + saveFileDialog.FileName);
+				}
+				catch (Exception ex) 
+				{
+					logger.Warn("Ошибка при сохранении");
+					MessageBox.Show(ex.Message, "Неизвестная ошибка при сохранении", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+				}
 			}
 		}
 
@@ -148,17 +185,25 @@ namespace WindowsFormsCatamaran
 		private void загрузитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
 			if (openFileDialog.ShowDialog() == DialogResult.OK) 
-			{ 
-				if (portCollection.LoadData(openFileDialog.FileName)) 
-				{ 
-					MessageBox.Show("Загрузили", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information); 
-					ReloadLevels(); 
-					Draw(); 
-				} 
-				else 
-				{ 
-					MessageBox.Show("Не загрузили", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Error); 
-				} 
+			{
+				try
+				{
+					portCollection.LoadData(openFileDialog.FileName);
+					MessageBox.Show("Загрузили", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					logger.Info("Загружено из файла " + openFileDialog.FileName); 
+					ReloadLevels();
+					Draw();
+				}
+				catch (PortOverflowException ex) 
+				{
+					logger.Warn(ex);
+					MessageBox.Show(ex.Message, "Занятое место", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+				}
+				catch (Exception ex) 
+				{
+					logger.Warn("Ошибка при загрузке");
+					MessageBox.Show(ex.Message, "Неизвестная ошибка при загрузке", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+				}
 			}
 		}
     }

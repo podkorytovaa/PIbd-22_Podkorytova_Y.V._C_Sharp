@@ -27,27 +27,24 @@ namespace WindowsFormsCatamaran
 		// Перегрузка оператора сложения
 		public static int operator +(Port<T> p, T boat)
 		{
-			if (p._places.Count < p._maxCount)
+			if (p._places.Count >= p._maxCount)
 			{
-				p._places.Add(boat);
-				return p._places.Count - 1;
+				throw new PortOverflowException();
 			}
-			else
-				return -1;
-
+			p._places.Add(boat);
+			return p._places.Count - 1;
 		}
 
 		// Перегрузка оператора вычитания
 		public static T operator -(Port<T> p, int index)
 		{
-			if (index > -1 && index < p._places.Count)
+			if (index <= -1 || index >= p._places.Count)
 			{
-				T t = p._places[index];
-				p._places.RemoveAt(index);
-				return t;
+				throw new PortNotFoundException(index);
 			}
-			else
-				return null;
+			T t = p._places[index];
+			p._places.RemoveAt(index);
+			return t;
 		}
 
 		// Метод отрисовки гавани
