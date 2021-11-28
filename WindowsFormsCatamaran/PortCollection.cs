@@ -61,10 +61,6 @@ namespace WindowsFormsCatamaran
             {
                 File.Delete(filename);
             }
-            else
-            {
-                throw new FileNotFoundException();
-            }
             using (StreamWriter sw = new StreamWriter(filename))
             {
                 sw.Write($"PortCollection{Environment.NewLine}", sw);
@@ -137,7 +133,7 @@ namespace WindowsFormsCatamaran
                     var result = portStages[key] + boat;
                     if (result == -1)
                     {
-                        throw new PortOverflowException();
+                        throw new TypeLoadException("Не удалось загрузить лодку в гавань");
                     }
                 }
             }
