@@ -103,7 +103,7 @@ namespace WindowsFormsCatamaran
 				}
 				catch (PortNotFoundException ex) 
 				{
-					logger.Warn(ex);
+					logger.Warn("Попытка забрать лодку с незанятого места");
 					MessageBox.Show(ex.Message, "Не найдено", MessageBoxButtons.OK, MessageBoxIcon.Error); 
 				}
 				catch (Exception ex) 
@@ -196,7 +196,7 @@ namespace WindowsFormsCatamaran
 				}
 				catch (PortOverflowException ex) 
 				{
-					logger.Warn(ex);
+					logger.Warn("Гавань переполнена");
 					MessageBox.Show(ex.Message, "Занятое место", MessageBoxButtons.OK, MessageBoxIcon.Error); 
 				}
 				catch (Exception ex) 
