@@ -151,7 +151,7 @@ namespace WindowsFormsCatamaran
 				}
 				catch (PortOverflowException ex) 
 				{
-					logger.Warn($"Гавань переполнена, невозможно добавить лодку");
+					logger.Warn("Гавань переполнена, невозможно добавить лодку");
 					MessageBox.Show(ex.Message, "Переполнение", MessageBoxButtons.OK, MessageBoxIcon.Error); 
 				}
 				catch (Exception ex) 
