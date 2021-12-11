@@ -4,7 +4,7 @@ using System.Drawing;
 namespace WindowsFormsCatamaran
 {
     // Класс отрисовки катамарана
-    public class Catamaran : Boat
+    public class Catamaran : Boat, IEquatable<Catamaran>
     {
         public Color DopColor { private set; get; } // Дополнительный цвет
         public bool Body { private set; get; } // Признак наличия корпуса
@@ -23,20 +23,20 @@ namespace WindowsFormsCatamaran
         }
 
         // Конструктор для загрузки с файла
-        public Catamaran(string info) : base(info) 
-        { 
-            string[] strs = info.Split(separator); 
-            if (strs.Length == 8) 
-            { 
-                MaxSpeed = Convert.ToInt32(strs[0]); 
+        public Catamaran(string info) : base(info)
+        {
+            string[] strs = info.Split(separator);
+            if (strs.Length == 8)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
                 Weight = Convert.ToInt32(strs[1]);
-                MainColor = Color.FromName(strs[2]); 
+                MainColor = Color.FromName(strs[2]);
                 DopColor = Color.FromName(strs[3]);
                 Body = Convert.ToBoolean(strs[4]);
                 LeftCorpus = Convert.ToBoolean(strs[5]);
                 RightCorpus = Convert.ToBoolean(strs[6]);
-                Seat = Convert.ToBoolean(strs[7]); 
-            } 
+                Seat = Convert.ToBoolean(strs[7]);
+            }
         }
 
         // Отрисовка катамарана
@@ -73,7 +73,7 @@ namespace WindowsFormsCatamaran
                 PointF[] points3 = { p2_1, p2_2, p2_3, p2_4, p2_5 };
                 g.FillPolygon(corpus, points3);
                 g.DrawPolygon(pen2, points3);
-                
+
                 g.FillRectangle(balk, _startPosX + 10, _startPosY + 51, 5, 20);
                 g.FillRectangle(balk, _startPosX + 60, _startPosY + 51, 5, 20);
             }
@@ -86,14 +86,61 @@ namespace WindowsFormsCatamaran
         }
 
         // Смена дополнительного цвета 
-        public void SetDopColor(Color color) 
-        { 
-            DopColor = color; 
+        public void SetDopColor(Color color)
+        {
+            DopColor = color;
         }
 
-        public override string ToString() 
-        { 
-            return $"{base.ToString()}{separator}{DopColor.Name}{separator}{Body}{separator}{LeftCorpus}{separator}{RightCorpus}{separator}{Seat}"; 
+        public override string ToString()
+        {
+            return $"{base.ToString()}{separator}{DopColor.Name}{separator}{Body}{separator}{LeftCorpus}{separator}{RightCorpus}{separator}{Seat}";
+        }
+
+        // Метод интерфейса IEquatable для класса Catamaran
+        public bool Equals(Catamaran other)
+        {
+            if (base.Equals(other))
+            {
+                if (DopColor != other.DopColor)
+                {
+                    return false;
+                }
+                if (Body != other.Body)
+                {
+                    return false;
+                }
+                if (LeftCorpus != other.LeftCorpus)
+                {
+                    return false;
+                }
+                if (RightCorpus != other.RightCorpus)
+                {
+                    return false;
+                }
+                if (Seat != other.Seat)
+                {
+                    return false;
+                }
+                return true;
+            }
+            return false;
+        }
+
+        // Перегрузка метода от object 
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if (!(obj is Catamaran catamaranObj))
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(catamaranObj);
+            }
         }
     }
 }

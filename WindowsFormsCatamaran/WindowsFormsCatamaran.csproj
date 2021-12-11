@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Boat.cs" />
+    <Compile Include="BoatComparer.cs" />
     <Compile Include="Catamaran.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="FormCatamaran.cs">
@@ -77,6 +78,7 @@
     </Compile>
     <Compile Include="ITransport.cs" />
     <Compile Include="Port.cs" />
+    <Compile Include="PortAlreadyHaveException .cs" />
     <Compile Include="PortCollection.cs" />
     <Compile Include="PortNotFoundException.cs" />
     <Compile Include="PortOverflowException.cs" />

@@ -149,15 +149,20 @@ namespace WindowsFormsCatamaran
 						MessageBox.Show("Лодку не удалось пришвартовать");
 					}
 				}
-				catch (PortOverflowException ex) 
+				catch (PortOverflowException ex)
 				{
 					logger.Warn("Гавань переполнена, невозможно добавить лодку");
-					MessageBox.Show(ex.Message, "Переполнение", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+					MessageBox.Show(ex.Message, "Переполнение", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
-				catch (Exception ex) 
+				catch (PortAlreadyHaveException ex)
+				{
+					logger.Warn("Дублирование лодки");
+					MessageBox.Show(ex.Message, "Дублирование", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				catch (Exception ex)
 				{
 					logger.Warn("Неизвестная ошибка при попытке добавить лодку");
-					MessageBox.Show(ex.Message, "Неизвестная ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+					MessageBox.Show(ex.Message, "Неизвестная ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 			} 
 		}
@@ -204,6 +209,17 @@ namespace WindowsFormsCatamaran
 					logger.Warn("Ошибка при загрузке");
 					MessageBox.Show(ex.Message, "Неизвестная ошибка при загрузке", MessageBoxButtons.OK, MessageBoxIcon.Error); 
 				}
+			}
+		}
+
+		// Обработка нажатия кнопки "Сортировка" 
+		private void buttonSort_Click(object sender, EventArgs e)
+        {
+			if (listBoxPort.SelectedIndex > -1) 
+			{ 
+				portCollection[listBoxPort.SelectedItem.ToString()].Sort(); 
+				Draw(); 
+				logger.Info("Сортировка уровней"); 
 			}
 		}
     }

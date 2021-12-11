@@ -67,21 +67,17 @@ namespace WindowsFormsCatamaran
                 foreach (var level in portStages)
                 {
                     sw.Write($"Port{separator}{level.Key}{Environment.NewLine}", sw);
-                    ITransport boat = null;
-                    for (int i = 0; (boat = level.Value.GetNext(i)) != null; i++)
+                    foreach (ITransport boat in level.Value)
                     {
-                        if (boat != null)
+                        if (boat.GetType().Name == "Boat")
                         {
-                            if (boat.GetType().Name == "Boat")
-                            {
-                                sw.Write($"Boat{separator}", sw);
-                            }
-                            if (boat.GetType().Name == "Catamaran")
-                            {
-                                sw.Write($"Catamaran{separator}", sw);
-                            }
-                            sw.Write(boat + Environment.NewLine, sw);
+                            sw.Write($"Boat{separator}", sw);
                         }
+                        if (boat.GetType().Name == "Catamaran")
+                        {
+                            sw.Write($"Catamaran{separator}", sw);
+                        }
+                        sw.Write(boat + Environment.NewLine, sw);
                     }
                 }
             }                   
